@@ -5,7 +5,8 @@ spring:
     name: hmdp
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://192.168.15.134:3306/hmdp?useSSL=false&serverTimezone=UTC
+    #url: jdbc:mysql://192.168.15.134:3306/hmdp?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://192.168.61.134:3306/hm_dianping?useSSL=false&serverTimezone=UTC
     username: root
     password: root
   redis:
