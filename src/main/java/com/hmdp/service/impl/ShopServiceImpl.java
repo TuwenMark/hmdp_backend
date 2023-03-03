@@ -19,6 +19,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
 import java.time.LocalDateTime;
+import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
@@ -225,6 +227,20 @@ public class ShopServiceImpl extends ServiceImpl<ShopMapper, Shop> implements IS
 		// 2. 删除缓存
 		stringRedisTemplate.delete(RedisConstants.CACHE_SHOP_KEY + id);
 		return Result.ok();
+	}
+
+	// @Scheduled(cron = "0 27 22 * * ?")
+	protected void shopInfoCacheWarmUp() {
+		System.out.println("店铺缓存预热开始！");
+		List<Shop> shopList = query().list();
+		Iterator<Shop> iterator = shopList.iterator();
+		ValueOperations<String, String> operations = stringRedisTemplate.opsForValue();
+		while (iterator.hasNext()) {
+			Shop shop = iterator.next();
+			RedisDataDTO redisDataDTO = new RedisDataDTO(shop, LocalDateTime.now().plusSeconds(RedisConstants.CACHE_SHOP_TTL));
+			operations.set(RedisConstants.CACHE_SHOP_KEY + shop.getId(), JSONUtil.toJsonStr(redisDataDTO));
+		}
+		System.out.println("店铺缓存预热结束！");
 	}
 
 }

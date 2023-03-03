@@ -17,6 +17,7 @@ public class RedisConstants {
 
     public static final String SECKILL_STOCK_KEY = "seckill:stock:";
     public static final String SECKILL_ORDER_KEY = "seckill:order:";
+    public static final String STREAM_ORDER_KEY = "stream.orders";
 
     public static final String BLOG_LIKED_KEY = "hmdp:blog:liked:";
     public static final String FEED_KEY = "hmdp:feed:";

@@ -2,7 +2,6 @@ package com.hmdp;
 
 import com.hmdp.service.impl.ShopServiceImpl;
 import com.hmdp.utils.RedisIdWorker;
-import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.annotation.Resource;
@@ -44,7 +43,7 @@ class HmDianPingApplicationTests {
 		shopService.saveShop2Redis(1L, 20L);
 	}
 
-	@Test
+	// @Test
 	void testTime() {
 		System.out.println(LocalDateTime.now());
 	}

@@ -20,7 +20,7 @@ public class RedisConfig {
 		// 配置类
 		Config config = new Config();
 		// 添加redis地址和密码
-		config.useSingleServer().setAddress("redis://127.0.0.1:6379").setPassword("123456");
+		config.useSingleServer().setAddress("redis://192.168.15.134:6379").setPassword("123456");
 		// 创建客户端
 		return Redisson.create(config);
 	}
