@@ -8,9 +8,9 @@ local orderId = ARGV[3]
 
 -- 2. 数据key
 -- 2.1. 秒杀券库存key
-local stockKey = 'seckill:stock:' .. voucherId
+local stockKey = 'hmdp:seckill:stock:' .. voucherId
 -- 2.2. 秒杀订单key
-local orderKey = 'seckill:order:' .. voucherId
+local orderKey = 'hmdp:seckill:order:' .. voucherId
 
 -- 3. 脚本业务
 -- 3.1. 判断库存
@@ -26,5 +26,5 @@ end
 -- 3.3 扣减库存，创建订单（将下单用户加入到优惠券的set集合中，保证唯一下单用户），将订单放入Stream队列
 redis.call('INCRBY', stockKey, -1)
 redis.call('SADD', orderKey, userId)
-redis.call('XADD', 'stream.orders', '*', 'voucherId', voucherId, 'userId', userId, 'id', orderId)
+redis.call('XADD', 'hmdp:stream.orders', '*', 'voucherId', voucherId, 'userId', userId, 'id', orderId)
 return 0

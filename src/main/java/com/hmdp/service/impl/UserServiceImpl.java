@@ -50,7 +50,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 		// 3. 保存验证码到Redis
 		stringRedisTemplate.opsForValue().set(RedisConstants.LOGIN_CODE_KEY + phone, code, RedisConstants.LOGIN_CODE_TTL, TimeUnit.MINUTES);
 		// 4. 发送验证码
-		log.debug("发送验证码成功，验证码；{}", code);
+		log.debug("发送验证码成功，验证码: {}", code);
 		// 5. 返回信息
 		return Result.ok();
 	}

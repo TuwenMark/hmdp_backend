@@ -6,9 +6,9 @@ local userId = ARGV[2]
 
 -- 2. 数据key
 -- 2.1. 秒杀券库存key
-local stockKey = 'seckill:stock:' .. voucherId
+local stockKey = 'hmdp:seckill:stock:' .. voucherId
 -- 2.2. 秒杀订单key
-local orderKey = 'seckill:order:' .. voucherId
+local orderKey = 'hmdp:seckill:order:' .. voucherId
 
 -- 3. 脚本业务
 -- 3.1. 判断库存

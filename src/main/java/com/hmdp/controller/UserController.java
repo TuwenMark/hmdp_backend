@@ -8,8 +8,10 @@ import com.hmdp.entity.User;
 import com.hmdp.entity.UserInfo;
 import com.hmdp.service.IUserInfoService;
 import com.hmdp.service.IUserService;
+import com.hmdp.utils.RedisConstants;
 import com.hmdp.utils.UserHolder;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -33,6 +35,9 @@ public class UserController {
 
     @Resource
     private IUserInfoService userInfoService;
+
+    @Resource
+    private StringRedisTemplate stringRedisTemplate;
 
     /**
      * 发送手机验证码
@@ -59,8 +64,9 @@ public class UserController {
      */
     @PostMapping("/logout")
     public Result logout(){
-        // TODO 实现登出功能
-        return Result.fail("功能未完成");
+        // 移除Redis中的登录状态
+        stringRedisTemplate.delete(RedisConstants.LOGIN_USER_KEY + UserHolder.getUser().getId());
+        return Result.ok();
     }
 
     @GetMapping("/me")
@@ -83,4 +89,17 @@ public class UserController {
         // 返回
         return Result.ok(info);
     }
+
+    @GetMapping("/{id}")
+    public Result queryUserById(@PathVariable("id") Long userId){
+        if (userId == null || userId <= 0) {
+            return Result.fail("请求参数错误，用户不存在！");
+        }
+        User user = userService.getById(userId);
+        if (user == null) {
+            return Result.fail("用户不存在！");
+        }
+        return Result.ok(user);
+    }
+
 }

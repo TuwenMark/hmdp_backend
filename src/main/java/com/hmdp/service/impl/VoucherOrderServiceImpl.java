@@ -219,7 +219,7 @@ public class VoucherOrderServiceImpl extends ServiceImpl<VoucherOrderMapper, Vou
 		RLock lock = redissonClient.getLock(RedisConstants.SECKILL_ORDER_KEY + userId);
 		boolean result = lock.tryLock();
 		if (!result) {
-			log.error("请勿重复下单！");
+			log.info("请勿重复下单！");
 		}
 		// 创建订单
 		try {
